@@ -6,7 +6,6 @@ import Nav from "./components/Nav";
 const About = ({activeNumber}) => {
     return(
         <div className="about"> 
-          
             <div className="about_wrapper"> 
                 <div className="about_wrapper_navLeft"> 
                     <img src={aboutNavImage} alt="not found" className="about_wrapper_navLeft_image" />

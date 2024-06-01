@@ -1,6 +1,8 @@
 
 
 import navImage from "../resources/icons/navbar-sign.png"
+import straightArrow from "../resources/icons/straight_arrow.png"
+import downArrow from "../resources/icons/down_arrow.png"
 import Nav from "./components/Nav"
 import { useState } from "react"
 import ProjectDisplay from "./components/ProjectDisplay"
@@ -17,7 +19,7 @@ const Projects = ({activeNumber}) => {
     const [projects] = useState([
         {
             id: 1,
-            projectName:"E-commerce - Summary points",
+            projectName:"E-commerce",
             projectLink: "https://github.com/kimleangnao/ecommerce",
             projectSummary: "E-commerce platform focusing on many different brands of shoes. The website offer users multiple tools to customizing their search, ensuring they find the perfect fit for their unique style. Customers can peruse reviews from other shoppers before making a purchase and also view shoes from various angles, empowering them to make informed decisions.",
             projectFeatures: ["Components Management in React","State Management", "Controlling State flow through components", "Sorting & Filtering", "User Create Reviews & Rating", "View Comments & Reviews", "Featured Pages: Specific Atheletes & Trend upkeep"],
@@ -122,26 +124,49 @@ const Projects = ({activeNumber}) => {
    
     const [viewport] = useState(window.innerWidth)
     const [hideMobileNav, setHideMobileNav] = useState(true)
-
+    const [guideShow, setGuideShow] = useState(true);
+    
     const onControl = (num) => {
-        console.log("CLICK!")
         setProjectActiveIndex(num)
     }
+
 
     return( 
         <div>
             {
                 viewport < 720 ? (
-                    <div className="mobile_projects">
+                    <div className={`mobile_projects ${guideShow? "mobile_projects-guide" : ""}`}>
+                        {
+                            guideShow ? (
+                                <div className="mobile_projects_guide">
+                            
+                                    <div className="mobile_projects_guide_point">
+                                        Projects navigation button
+                                        <img src={straightArrow} alt="straight_arrow" className="mobile_projects_guide_point_image" />
+                                    </div> 
+                                    <button onClick={() => setGuideShow(!guideShow)} className="mobile_projects_guide_close">
+                                        <i className="fa-solid fa-xmark"></i>
+                                    </button>
+                                    <div className="mobile_projects_guide_point mobile_projects_guide_point-nav">
+                                        <span className="mobile_projects_guide_point-nav_text">Scroll down for page navigation</span>
+                                        <img src={downArrow} alt="straight_arrow" className="mobile_projects_guide_point-nav_image" />
+                                    </div> 
+                                </div>   
+                            ) : ""
+                        }
+                       
 
                         {
                             hideMobileNav ? "" : (
-                                <MobileNavProject setProjectActiveIndex={onControl} projectActiveIndex={projectActiveIndex} />          
+                                <MobileNavProject hideMobileNav={hideMobileNav} setHideMobileNav={setHideMobileNav} setProjectActiveIndex={onControl} projectActiveIndex={projectActiveIndex} />          
                             )
                         }
                         
                         <button onClick={() => setHideMobileNav(!hideMobileNav)} className="mobile_projects_controlNav"></button>
                         <div className="mobile_projects_wrap">
+                            <h2 className="mobile_projects_wrap_title">{projects[projectActiveIndex].projectName}</h2>
+                            <ProjectDisplay  project={projects[projectActiveIndex]} />
+                            <Nav  activeNumber={activeNumber} />
 
                         </div>
 
