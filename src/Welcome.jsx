@@ -46,7 +46,7 @@ const Welcome = ({activeNumber}) => {
     return(
         <div >
             {
-                alreadyVisited || (viewportWidth < 1280 && viewportWidth > 700)? (
+                alreadyVisited && viewportWidth > 700? (
                     <div className="welcomeStatic">
                         <div className="welcomeStatic_background" >
                             <div className="welcomeStatic_background_iAm" > 
@@ -128,42 +128,31 @@ const Welcome = ({activeNumber}) => {
                             </div>
                         </div>
                     </div> 
-                ) : viewportWidth < 700 ? (
-                  
-                    <div className="welcomeStatic">
-                        {  
-                    alert("This website does not support mobile viewport!!!")}
-                        <div className="welcomeStatic_background" >
-                            <div className="welcomeStatic_background_iAm" > 
-                                
+                ) : viewportWidth < 500 ? (
+                    <div className="mobile_welcome">
+                       <div className="mobile_welcome_profile">
+                            <img src={profilePic} alt="profile_image" className="mobile_welcome_profile_" />
+                        </div>
+                        <div className="mobile_welcome_info">
+                            <p className="mobile_welcome_info_name">KIMLEANG NAO</p>
+                            <p className="mobile_welcome_info_title">FRONT-END DEVELOPER</p>
+                            <div className="mobile_welcome_info_socialNetwork">
+                                <Link to="https://github.com/kimleangnao" className="mobile_welcome_info_socialNetwork_link" target="_blank" rel="noopener noreferrer">
+                                    <span className="fa-brands fa-square-github"></span>
+                                </Link>
+                                <Link to="https://x.com/Kiml3ang" target="_blank" className="mobile_welcome_info_socialNetwork_link" rel="noopener noreferrer">
+                                    <span className="fa-brands fa-x-twitter"></span>
+                                </Link>
                             </div>
-                            <div className="welcomeStatic_background_info" > 
-                                <div className="welcomeStatic_background_info_image" > 
-                                    <img src={profilePic} alt="not found" className="welcomeStatic_background_info_image_profile" />
-                                </div>
-                                <div className="welcomeStatic_background_info_texts" > 
-                                    <p className="welcomeStatic_background_info_texts_name" >KIMLEANG NAO</p>
-                                    <p className="welcomeStatic_background_info_texts_title" >FRONT-END ENGINEER</p>
-                                    <div className="welcomeStatic_background_info_texts_socialNetworks">
-                                        <Link to="https://github.com/kimleangnao" target="_blank" rel="noopener noreferrer">
-                                        <span className="fa-brands fa-square-github"></span>
-                                        </Link>
-                                        <Link to="https://x.com/Kiml3ang" target="_blank" rel="noopener noreferrer">
-                                        <span className="fa-brands fa-x-twitter"></span>
-                                        </Link>
-                                    </div> 
-                                    <div className="welcomeStatic_background_info_texts_group">
-                                        <span>HTML</span> 
-                                        <span>CSS</span>
-                                        <span>JavaScript</span>
-                                        <span>React</span>
-                                    </div>
-                                </div>
+                            <div className="mobile_welcome_info_skills"> 
+                                <span className="mobile_welcome_info_skills_name">HTML</span>
+                                <span className="mobile_welcome_info_skills_name">CSS</span>
+                                <span className="mobile_welcome_info_skills_name">JAVASCRIPT</span>
+                                <span className="mobile_welcome_info_skills_name">REACT</span>
                             </div>
-                            <div className="welcomeStatic_background_nav">
-                                <Nav activeNumber={activeNumber} />
-                            </div>
-
+                        </div>
+                        <div className="mobile_welcome_nav">
+                            <Nav activeNumber={activeNumber} />
                         </div>
                     </div>
                 ) : ""

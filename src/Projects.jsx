@@ -10,6 +10,7 @@ import pomodoroImage from "../resources/images/pomodoro.png"
 import blogImage from "../resources/images/blog.png"
 import todolistImage from "../resources/images/todolist.png"
 import tetrisImage from "../resources/images/tetris.png"
+import MobileNavProject from "./components/MobileNavProject"
 
 const Projects = ({activeNumber}) => {
 
@@ -119,35 +120,65 @@ const Projects = ({activeNumber}) => {
     const [projectActiveIndex, setProjectActiveIndex] = useState(0)
 
    
+    const [viewport] = useState(window.innerWidth)
+    const [hideMobileNav, setHideMobileNav] = useState(true)
 
+    const onControl = (num) => {
+        console.log("CLICK!")
+        setProjectActiveIndex(num)
+    }
 
     return( 
-        <div className="projects">
-            <div className="projects_background">
-                <div className="projects_background_nav">
-                    <img src={navImage} alt="not found" className="projects_background_nav_image" />
-                    <div className="projects_background_nav_menu">
-                        <button onClick={() => setProjectActiveIndex(0)} className={`projects_background_nav_menu_item ${projectActiveIndex == 0 ? "projects_background_nav_menu_item-active" : ""}`}>
-                            E-commerce
-                        </button>  
-                        <button onClick={() => setProjectActiveIndex(1)} className={`projects_background_nav_menu_item ${projectActiveIndex == 1 ? "projects_background_nav_menu_item-active" : ""}`}>
-                            Pomodoro
-                        </button>
-                        <button onClick={() => setProjectActiveIndex(2)} className={`projects_background_nav_menu_item ${projectActiveIndex == 2 ? "projects_background_nav_menu_item-active" : ""}`}>
-                            Todo-list
-                        </button>
-                        <button onClick={() => setProjectActiveIndex(3)} className={`projects_background_nav_menu_item ${projectActiveIndex == 3 ? "projects_background_nav_menu_item-active" : ""}`}>
-                            Blog
-                        </button>
-                        <button onClick={() => setProjectActiveIndex(4)} className={`projects_background_nav_menu_item ${projectActiveIndex == 4 ? "projects_background_nav_menu_item-active" : ""}`}>
-                            Tetris
-                        </button>
+        <div>
+            {
+                viewport < 720 ? (
+                    <div className="mobile_projects">
+
+                        {
+                            hideMobileNav ? "" : (
+                                <MobileNavProject setProjectActiveIndex={onControl} projectActiveIndex={projectActiveIndex} />          
+                            )
+                        }
+                        
+                        <button onClick={() => setHideMobileNav(!hideMobileNav)} className="mobile_projects_controlNav"></button>
+                        <div className="mobile_projects_wrap">
+
+                        </div>
+
                     </div>
-                </div>
-                <ProjectDisplay project={projects[projectActiveIndex]} />
-                <Nav  activeNumber={activeNumber} />
-            </div>
+                ) : 
+                (
+                    <div className="projects">
+                        <div className="projects_background">
+                            <div className="projects_background_nav">
+                                <img src={navImage} alt="not found" className="projects_background_nav_image" />
+                                <div className="projects_background_nav_menu">
+                                    <button onClick={() => setProjectActiveIndex(0)} className={`projects_background_nav_menu_item ${projectActiveIndex == 0 ? "projects_background_nav_menu_item-active" : ""}`}>
+                                        E-commerce
+                                    </button>  
+                                    <button onClick={() => setProjectActiveIndex(1)} className={`projects_background_nav_menu_item ${projectActiveIndex == 1 ? "projects_background_nav_menu_item-active" : ""}`}>
+                                        Pomodoro
+                                    </button>
+                                    <button onClick={() => setProjectActiveIndex(2)} className={`projects_background_nav_menu_item ${projectActiveIndex == 2 ? "projects_background_nav_menu_item-active" : ""}`}>
+                                        Todo-list
+                                    </button>
+                                    <button onClick={() => setProjectActiveIndex(3)} className={`projects_background_nav_menu_item ${projectActiveIndex == 3 ? "projects_background_nav_menu_item-active" : ""}`}>
+                                        Blog
+                                    </button>
+                                    <button onClick={() => setProjectActiveIndex(4)} className={`projects_background_nav_menu_item ${projectActiveIndex == 4 ? "projects_background_nav_menu_item-active" : ""}`}>
+                                        Tetris
+                                    </button>
+                                </div>
+                            </div>
+                            <ProjectDisplay  project={projects[projectActiveIndex]} />
+                            <Nav  activeNumber={activeNumber} />
+                        </div>
+                    </div>
+                )
+            }
         </div>
+       
+        
     )
 }
 
